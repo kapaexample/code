@@ -1,23 +1,38 @@
 import CRUDService from '../services/CRUDService';
-let getFormPage = (req, res) => {
-    res.render('form');
-}
-
+/* describe post info to SQL*/
 let getPostCRUD = async(req, res) => {
-    let massage = await CRUDService.createNewUser(req.body);
-    console.log(massage);
-    return res.send('created successfully');
+    await CRUDService.createNewUser(req.body);
+    let userId = 0;
+    let userData = await CRUDService.getUserInfoById(userId);
+    let data = await CRUDService.getData();
+    return res.render('form.ejs',{
+        dataTable: data,
+        user: userData,
+    });
 }
-let getDisplay = async(req, res) => {
-    let data = await CRUDService.displayUser();
-    return res.render('display.ejs',{
-        dataTable:data
+/* describe get page */
+let getForm =async(req,res)=>{
+    let userId = 0;
+    let userData = await CRUDService.getUserInfoById(userId);
+    let data = await CRUDService.getData();
+    return res.render('form.ejs',{
+        dataTable: data,
+        user: userData,
+    });
+}
+/* edit */
+let getEditCRUD = async(req,res) => {
+    let data = await CRUDService.getData();
+    let userId = req.query.id;
+    let userData = await CRUDService.getUserInfoById(userId);
+     return res.render('form.ejs',{
+        dataTable: data,
+        user: userData,
     });
 }
 
-
 module.exports = {
-    getFormPage:getFormPage,
     getPostCRUD:getPostCRUD,
-    getDisplay:getDisplay,
+    getForm:getForm,
+    getEditCRUD:getEditCRUD,
 }

@@ -3,40 +3,96 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>INF</title>
+  
+    <style>
+        table, th, td {
+          border:1px solid black;
+          border-collapse: collapse;
+        }
+    .btn-edit {
+        outline: none;
+        border:none;
+        background-color: orange;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .btn-delete {
+        outline: none;
+        border:none;
+        background-color: red;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+        </style>
 </head>
+
 <body>
-    <form action="/post-crud" method="post">
-        <div style="color: royalblue;">CREATE USER</div>
-        <div class="form-row col-6">
-          <div class="col">
-            <input type="email" class="form-control" placeholder="email" name="email">
-          </div>
-          <div class="col">
-            <input type="password" class="form-control" placeholder="password" name="password">
-          </div>
-        </div><br>
-        <div class="form-row col-6">
-          <div class="col">
-            <input type="text" class="form-control" placeholder="First name" name="firstName">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Last nam" name="lastName">
-          </div>
-        </div>
-        <br><button>Register</button>
+  <form action="/post-crud" method="post">
+    <div style="color: royalblue;">CREATE USER</div>
+    <div class="form-row col-6">
+      <div class="col">
+        <input type="email" class="form-control" placeholder="email" name="email">
+      </div>
+      <div class="col">
+        <input type="password" class="form-control" placeholder="password" name="password">
+      </div>
+    </div><br>
+    <div class="form-row col-6">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="First name" name="firstName">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Last nam" name="lastName">
+      </div>
     </div>
-      </form>
+    <br><button>Register</button>
+  </div>
+  </form>
+  <p>---------------------------------------</p>
+  <form>
+    <div style="color: royalblue;">EDIT USER</div>
+    <div class="form-row col-6">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="First name" name="firstName" value="<% if(user==null){ %>
+          <%='' %>
+          <% } else{ %> 
+          <%= user.firstName %>
+          <% } %>
+         %>">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Last name" name="lastName" value="<% if(user==null){ %>
+          <%='' %>
+          <% } else{ %> 
+          <%= user.lastName %>
+          <% } %>
+         %>">
+      </div>
+    </div>
+    <br><button>OK</button>
+
+  </form>
+  <p>---------------------------------------</p>
+<h1>INFO CLIEN</h1>
+  <table>
+    <tr>
+      <th>Email</th>
+      <th>Password</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Action</th>
+    </tr>
+    <% for(let i=0; i < dataTable.length; i++) { %>
+       <tr>
+         <td><%= dataTable[i].email %></td>
+         <td><%= dataTable[i].password %></td>
+         <td><%= dataTable[i].firstName %></td>
+         <td><%= dataTable[i].lastName %></td>
+         <td><a href="/edit-crud?id=<%= dataTable[i].id%>" type="button" class="btn-edit">Edit</a>
+          <a href="/edit-crud?id=<%= dataTable[i].id%>" type="button" class="btn-delete">Delete</a></td>
+       </tr>
+    <% } %>
+    </table>
 </body>
 </html>

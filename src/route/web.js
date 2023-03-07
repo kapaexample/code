@@ -4,10 +4,12 @@ import controllerPage from '../controller/controllerPage';
 let router = express.Router();
 
 let initWebRoutes = (app) =>{
-  router.get('/',controllerPage.getFormPage);
-router.post('/post-crud', controllerPage.getPostCRUD);
-    router.get('/info',controllerPage.getDisplay);
-
+  /* command get page */
+  router.get('/createnewuser',controllerPage.getForm);
+  /* command info to SQL */
+  router.post('/post-crud', controllerPage.getPostCRUD);
+/* creat edit */
+  router.get('/edit-crud',controllerPage.getEditCRUD);
     app.use('/', router);
 }
 
