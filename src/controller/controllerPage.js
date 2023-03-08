@@ -31,8 +31,33 @@ let getEditCRUD = async(req,res) => {
     });
 }
 
+let postEditCRUD = async(req,res) => {
+    await CRUDService.updateUserInfo(req.body);
+    let data = await CRUDService.getData();
+    let userId = 0;
+    let userData = await CRUDService.getUserInfoById(userId);
+
+    return res.render('form.ejs',{
+        dataTable: data,
+        user: userData,
+    });
+}
+let postDeleteCRUD = async(req,res) => {
+    let userId = req.query.id;
+    await CRUDService.deleteUser(userId);
+    let data = await CRUDService.getData();
+    let useId = 0;
+    let userData = await CRUDService.getUserInfoById(useId);
+    return res.render('form.ejs',{
+        dataTable: data,
+        user: userData,
+    });
+}
+
 module.exports = {
     getPostCRUD:getPostCRUD,
     getForm:getForm,
     getEditCRUD:getEditCRUD,
+    postEditCRUD:postEditCRUD,
+    postDeleteCRUD:postDeleteCRUD
 }

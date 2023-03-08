@@ -57,8 +57,41 @@ let getUserInfoById = (userId) =>{
     })
  }
 
+ /* update data user */
+let updateUserInfo =(data) =>{
+    return new Promise (async(resolve, reject) =>{
+        try {
+            let user = await db.User.findOne({
+                where: { id: data.id},
+            });
+            user.firstName = data.firstName;
+            user.lastName = data.lastName;
+            await user.save();
+            resolve();
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+/* delete data user */
+let deleteUser = (userId) =>{
+    return new Promise (async(resolve, reject) =>{
+        try {
+            await db.User.destroy({
+                where: {
+                  id: userId
+                }
+              });
+            resolve();
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
     createNewUser:createNewUser,
     getData:getData,
     getUserInfoById:getUserInfoById,
+    updateUserInfo:updateUserInfo,
+    deleteUser:deleteUser,
 }

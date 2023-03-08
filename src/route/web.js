@@ -10,6 +10,10 @@ let initWebRoutes = (app) =>{
   router.post('/post-crud', controllerPage.getPostCRUD);
 /* creat edit */
   router.get('/edit-crud',controllerPage.getEditCRUD);
+  
+  router.post('/post-edit', controllerPage.postEditCRUD);
+
+  router.get('/delete-crud', controllerPage.postDeleteCRUD);
     app.use('/', router);
 }
 
